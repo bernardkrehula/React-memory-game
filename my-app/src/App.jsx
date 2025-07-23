@@ -6,7 +6,6 @@ import ColorSquares from './ColorSquares';
 function App() {
   const [ difficulty, setDifficulty ] = useState('Easy');
 
-
   return (
     <>
       <div className='main'>

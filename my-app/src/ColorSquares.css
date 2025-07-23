@@ -14,8 +14,3 @@
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(5, 1fr);
 }
-.colors li {
-  background-color: black;
-  list-style: none;
-  border-radius: 10px;
-}
