@@ -1,0 +1,21 @@
+.colors {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  height: 300px;
+  width: 400px;
+  gap: 10px;
+}
+.Medium {
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+}
+.Hard {
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+}
+.colors li {
+  background-color: black;
+  list-style: none;
+  border-radius: 10px;
+}

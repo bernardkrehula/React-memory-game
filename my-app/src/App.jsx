@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import Button from './Btn'
+import ColorSquares from './ColorSquares';
 
 function App() {
-  
+  const [ difficulty, setDifficulty ] = useState('Easy');
+
 
   return (
     <>
@@ -12,13 +14,11 @@ function App() {
         <p className='subheadline'>The goal of the game is to click on all squares only once! If you click on the same square twice, you loose!</p>
         <div className='game-content'>
           <ul className='difficulty-level'>
-            <Button>Easy</Button>
-            <Button>Medium</Button>
-            <Button>Hard</Button>
+            <Button onClick={() => {setDifficulty('Easy')}}>Easy</Button>
+            <Button onClick={() => {setDifficulty('Medium')}}>Medium</Button>
+            <Button onClick={() => {setDifficulty('Hard')}}>Hard</Button>
           </ul>
-          <ul className='colors'>
-            
-          </ul>
+          <ColorSquares variation={difficulty}/>
           <h2 className='squeares-amount'>Squares Clicked: 0/9</h2>
         </div>
       </div>
