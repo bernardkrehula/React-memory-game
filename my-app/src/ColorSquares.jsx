@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './ColorSquares.css'
 import SingleList from './SingleList';
 
@@ -10,19 +10,19 @@ const ColorSquares = ({variation}) => {
         setClicked(click);
     }
     const changeSquarePosition = () => {
-        if(clicked) refColor.current.sort(() => Math.random() - 0.5);
+        refColor.current.sort(() => Math.random() - 0.5);
         console.log(refColor.current)
     }
 
     const generateRandomColor = (difficulty) => {
-        if(refColor.current !== null) return 
-
+        /* if(refColor.current !== null) return */
         const randomColor = (squareNumber) => {
             refColor.current = Array.from({ length: squareNumber }).map((el, i) => {
                     const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
                     return color;
             })
         }
+        console.log('radi')
         switch(difficulty) {
             case 'Easy':
                 randomColor(9)
@@ -38,7 +38,7 @@ const ColorSquares = ({variation}) => {
     }
 
     return(
-        <ul className={`colors ${variation}`} onClick={() => generateRandomColor(variation)}>
+        <ul className={`colors ${variation}`} onClick={() => changeSquarePosition()}>
             {generateRandomColor(variation)}
             {refColor.current.map((color, index) => {
                 return(

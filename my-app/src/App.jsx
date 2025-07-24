@@ -5,7 +5,12 @@ import ColorSquares from './ColorSquares';
 
 function App() {
   const [ difficulty, setDifficulty ] = useState('Easy');
+  const [ changeColors, setChangeColors ] = useState(false);
 
+  const setChange = () => {
+    setChangeColors(prev => !prev);
+  }
+  
   return (
     <>
       <div className='main'>
