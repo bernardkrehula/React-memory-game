@@ -3,6 +3,7 @@ const SingleList = ({index, color, isClicked, changeSquarePosition}) => {
 
     return(
         <li key={index} style={{backgroundColor: color}} onClick={() => {
+            isClicked(prev  => !prev)
             changeSquarePosition();
         }}></li>
     )

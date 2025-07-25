@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { use, useState } from 'react'
 import './App.css'
 import Button from './Btn'
 import ColorSquares from './ColorSquares';
 
 function App() {
   const [ difficulty, setDifficulty ] = useState('Easy');
-  const [ changeColors, setChangeColors ] = useState(false);
+  const [ emptyRef, setEmptyRef ] = useState(false);
 
-  const setChange = () => {
-    setChangeColors(prev => !prev);
+  const resetRef = () => {
+    setEmptyRef(prev => !prev)
   }
   
   return (
@@ -18,11 +18,14 @@ function App() {
         <p className='subheadline'>The goal of the game is to click on all squares only once! If you click on the same square twice, you loose!</p>
         <div className='game-content'>
           <ul className='difficulty-level'>
-            <Button onClick={() => {setDifficulty('Easy')}}>Easy</Button>
+            <Button onClick={() => {
+              setDifficulty('Easy')
+              resetRef()
+              }}>Easy</Button>
             <Button onClick={() => {setDifficulty('Medium')}}>Medium</Button>
             <Button onClick={() => {setDifficulty('Hard')}}>Hard</Button>
           </ul>
-          <ColorSquares variation={difficulty}/>
+          <ColorSquares variation={difficulty} emptyRef={emptyRef} resetRef={resetRef}/>
           <h2 className='squeares-amount'>Squares Clicked: 0/9</h2>
         </div>
       </div>
