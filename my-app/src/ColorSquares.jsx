@@ -3,19 +3,22 @@ import './ColorSquares.css'
 import SingleList from './SingleList';
 
 const ColorSquares = ({variation}) => {
-    const [ colors, setColors ] = useState([]);
-    const [ clicked, setClicked ] = useState(false);    
+    const [ colors, setColors ] = useState([]);   
 
-    const isClicked = (click) => {
-        setClicked(click);
+    const setIsClicked = (id) => {
+        setColors(prev => prev.map(square => square.id === id ? {...square, isClicked: true } : square))
     }
     const changeSquarePosition = () => {
         setColors(prev => [...prev].sort(() => Math.random() - 0.5));
     }
-
+    
     useEffect(() => {
         const randomColor = (count) => {
-            const newColors = Array.from({ length: count }, () => "#" + Math.floor(Math.random() * 16777215).toString(16));
+            const newColors = Array.from({ length: count }).map((_, index) => ({
+                id: crypto.randomUUID(),
+                color: "#" + Math.floor(Math.random() * 16777215).toString(16),
+                isClicked: false
+            }));
             setColors(newColors)
         }
      
@@ -36,9 +39,11 @@ const ColorSquares = ({variation}) => {
  
     return(
         <ul className={`colors ${variation}`} onClick={() => changeSquarePosition()}>
-            {colors.map((color, index) => {
+            {colors.map((colorsInfo, index) => {
+                const { id, color, isClicked } = colorsInfo;
+               
                 return(
-                    <SingleList key={index} index={index} color={color} isClicked={isClicked} changeSquarePosition={changeSquarePosition}/>
+                    <SingleList key={id} id={id} color={color} setIsClicked={setIsClicked} changeSquarePosition={changeSquarePosition}/>
                 )
             })}
         </ul>

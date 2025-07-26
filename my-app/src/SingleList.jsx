@@ -1,10 +1,10 @@
 import './SingleList.css'
-const SingleList = ({index, color, isClicked, changeSquarePosition}) => {
-
+const SingleList = ({id, color, setIsClicked, changeSquarePosition}) => {
+    
     return(
-        <li key={index} style={{backgroundColor: color}} onClick={() => {
-            isClicked(prev  => !prev)
+        <li key={id} style={{backgroundColor: color}} onClick={() => {
             changeSquarePosition();
+            setIsClicked(id);
         }}></li>
     )
 }
