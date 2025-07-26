@@ -5,12 +5,7 @@ import ColorSquares from './ColorSquares';
 
 function App() {
   const [ difficulty, setDifficulty ] = useState('Easy');
-  const [ emptyRef, setEmptyRef ] = useState(false);
 
-  const resetRef = () => {
-    setEmptyRef(prev => !prev)
-  }
-  
   return (
     <>
       <div className='main'>
@@ -18,14 +13,11 @@ function App() {
         <p className='subheadline'>The goal of the game is to click on all squares only once! If you click on the same square twice, you loose!</p>
         <div className='game-content'>
           <ul className='difficulty-level'>
-            <Button onClick={() => {
-              setDifficulty('Easy')
-              resetRef()
-              }}>Easy</Button>
+            <Button onClick={() => {setDifficulty('Easy')}}>Easy</Button>
             <Button onClick={() => {setDifficulty('Medium')}}>Medium</Button>
             <Button onClick={() => {setDifficulty('Hard')}}>Hard</Button>
           </ul>
-          <ColorSquares variation={difficulty} emptyRef={emptyRef} resetRef={resetRef}/>
+          <ColorSquares variation={difficulty}/>
           <h2 className='squeares-amount'>Squares Clicked: 0/9</h2>
         </div>
       </div>
