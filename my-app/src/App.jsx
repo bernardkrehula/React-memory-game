@@ -1,4 +1,4 @@
-import { use, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Button from './Btn'
 import ColorSquares from './ColorSquares';
@@ -18,7 +18,6 @@ function App() {
             <Button onClick={() => {setDifficulty('Hard')}}>Hard</Button>
           </ul>
           <ColorSquares variation={difficulty}/>
-          <h2 className='squeares-amount'>Squares Clicked: 0/9</h2>
         </div>
       </div>
     </>

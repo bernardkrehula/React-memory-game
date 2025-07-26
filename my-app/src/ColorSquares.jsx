@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './ColorSquares.css'
 import SingleList from './SingleList';
 
 const ColorSquares = ({variation}) => {
-    const [ colors, setColors ] = useState([]);   
+    const [ colors, setColors ] = useState([]);
+    const [ clickedNumber, setClickedNumber ] = useState(0);   
 
     const setIsClicked = (id) => {
         setColors(prev => prev.map(square => square.id === id ? {...square, isClicked: true } : square))
@@ -11,7 +12,11 @@ const ColorSquares = ({variation}) => {
     const changeSquarePosition = () => {
         setColors(prev => [...prev].sort(() => Math.random() - 0.5));
     }
-    
+    const increaseClickedNum = (isClicked) => {
+        setClickedNumber(prev => {
+            return !isClicked ? prev + 1 : prev;
+        }) 
+    }
     useEffect(() => {
         const randomColor = (count) => {
             const newColors = Array.from({ length: count }).map((_, index) => ({
@@ -33,20 +38,25 @@ const ColorSquares = ({variation}) => {
                 randomColor(25)
                 break;
             }
+            
+            setClickedNumber(0)
     }, [variation])
      
         
  
     return(
+        <>
         <ul className={`colors ${variation}`} onClick={() => changeSquarePosition()}>
             {colors.map((colorsInfo, index) => {
                 const { id, color, isClicked } = colorsInfo;
                
                 return(
-                    <SingleList key={id} id={id} color={color} setIsClicked={setIsClicked} changeSquarePosition={changeSquarePosition}/>
+                    <SingleList key={id} id={id} color={color} isClicked={isClicked} setIsClicked={setIsClicked} increaseClickedNum={increaseClickedNum} changeSquarePosition={changeSquarePosition}/>
                 )
             })}
         </ul>
+        <h2 className='squeares-amount'>Squares Clicked: {clickedNumber}/9</h2>
+        </>
     )
 }
 
