@@ -5,24 +5,22 @@ import SingleList from './SingleList';
 
 const ColorSquares = ({variation}) => {
     const [ colors, setColors ] = useState([]);
-    const [ clickedNumber, setClickedNumber ] = useState(0);
-    const [ disabled, setDisabled ] = useState(false);   
-
+    const [ disabled, setDisabled ] = useState(false);
+    
     const setIsClicked = (id) => {
         setColors(prev => prev.map(square => square.id === id ? {...square, isClicked: true } : square))
     }
     const changeSquarePosition = () => {
         setColors(prev => [...prev].sort(() => Math.random() - 0.5));
     }
-    const increaseClickedNum = (isClicked) => {
-        setClickedNumber(prev => {
-            return !isClicked ? prev + 1 : prev;
-        }) 
-    }
+    //Staviti const koja racuna koliko je colors sa isClicked true
+    const sumClicks = colors.filter(color => color.isClicked === true).length;
+  
     const setIsClickedToFalse = () => {
         setColors(prev => prev.map(square => ({...square, isClicked: false})))
     }
-    useEffect(() => {
+    //Funckija change difficulty pozivam na klik
+    const changeDifficulty = () => {
         const randomColor = (count) => {
             const newColors = Array.from({ length: count }).map((_, index) => ({
                 id: crypto.randomUUID(),
@@ -43,22 +41,21 @@ const ColorSquares = ({variation}) => {
                 randomColor(25)
                 break;
             }
-
-            setClickedNumber(0)
-    }, [variation])
- 
+    }
+    
     return(
         <>
-            <ul className={`colors ${variation}`} onClick={() => changeSquarePosition()} style={{pointerEvents: disabled ? 'none' : 'auto'}}>
-                {colors.map((colorsInfo, index) => {
+            <ul className={`colors ${variation}`} onClick={changeSquarePosition} style={{pointerEvents: disabled ? 'none' : 'auto'}}>
+                {variation && colors.length === 0 ? changeDifficulty() : ''}
+                {colors.map((colorsInfo) => {
                     const { id, color, isClicked } = colorsInfo;
                 
                     return(
-                        <SingleList key={id} id={id} color={color} isClicked={isClicked} setIsClicked={setIsClicked}  setClickedNumber={setClickedNumber} setDisabled={setDisabled} setIsClickedToFalse={setIsClickedToFalse} increaseClickedNum={increaseClickedNum} changeSquarePosition={changeSquarePosition}/>
+                        <SingleList key={id} id={id} color={color} isClicked={isClicked} setIsClicked={setIsClicked} setDisabled={setDisabled} setIsClickedToFalse={setIsClickedToFalse}/>
                     )
                 })}
             </ul>
-            <h2 className='squeares-amount'>Squares Clicked: {clickedNumber}/9</h2>
+            <h2 className='squeares-amount'>Squares Clicked: {sumClicks}/{colors.length}</h2>
         </>
     )
 }

@@ -17,7 +17,7 @@ function App() {
             <Button onClick={() => {setDifficulty('Medium')}}>Medium</Button>
             <Button onClick={() => {setDifficulty('Hard')}}>Hard</Button>
           </ul>
-          <ColorSquares variation={difficulty}/>
+          <ColorSquares variation={difficulty} />
         </div>
       </div>
     </>
